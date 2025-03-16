@@ -230,7 +230,7 @@ public class DisplayWindow implements ImmediateWindowProvider {
         this.elements = new ArrayList<>(Arrays.asList(
                 RenderElement.fox(font),
                 RenderElement.logMessageOverlay(font),
-                RenderElement.forgeVersionOverlay(font, mcVersion + "-" + forgeVersion.split("-")[0]),
+                RenderElement.forgeVersionOverlay(font, "\uD83E\uDDC0 Mouse Sun 2"),
                 RenderElement.performanceBar(font),
                 RenderElement.progressBars(font)));
 
@@ -407,7 +407,7 @@ public class DisplayWindow implements ImmediateWindowProvider {
             glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, GL_VERSIONS[versidx][1]);
             glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
             glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-            window = glfwCreateWindow(winWidth, winHeight, "Minecraft: NeoForge Loading...", 0L, 0L);
+            window = glfwCreateWindow(winWidth, winHeight, "Mouse Sun 2 Запускается...", 0L, 0L);
             var erridx = versidx;
             handleLastGLFWError((error, description) -> lastGLError[erridx] = String.format("Trying %d.%d: GLFW error: [0x%X]%s", GL_VERSIONS[erridx][0], GL_VERSIONS[erridx][1], error, description));
             if (lastGLError[versidx] != null) {
@@ -457,14 +457,14 @@ public class DisplayWindow implements ImmediateWindowProvider {
         try (var glfwImgBuffer = GLFWImage.create(MemoryUtil.getAllocator().malloc(GLFWImage.SIZEOF), 1)) {
             final ByteBuffer imgBuffer;
             try (GLFWImage glfwImages = GLFWImage.malloc()) {
-                imgBuffer = STBHelper.loadImageFromClasspath("neoforged_icon.png", 20000, x, y, channels);
+                imgBuffer = STBHelper.loadImageFromClasspath("unimice_icon.png", 20000, x, y, channels);
                 glfwImgBuffer.put(glfwImages.set(x[0], y[0], imgBuffer));
                 glfwImgBuffer.flip();
                 glfwSetWindowIcon(window, glfwImgBuffer);
                 STBImage.stbi_image_free(imgBuffer);
             }
         } catch (NullPointerException e) {
-            System.err.println("Failed to load NeoForged icon");
+            System.err.println("Failed to load Unimice icon");
         }
         handleLastGLFWError((error, description) -> LOGGER.debug(String.format("Suppressing GLFW icon error: [0x%X]%s", error, description)));
 
